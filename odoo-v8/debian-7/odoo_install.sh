@@ -65,15 +65,10 @@ pip install gdata
 pip install -I pillow
 	
 echo -e "\n---- Create ODOO system user ----"
-echo "SKIPPED --per Viktor"
-#adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
-echo "..although we will make sure the Odoo user has a bash shell"
-chsh -s /bin/bash odoo
+adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
 echo -e "\n---- Create Log directory ----"
-echo "SKIPPED --per Viktor"
-#mkdir /var/log/$OE_USER
-echo "SKIPPED --per Viktor"
-#chown $OE_USER:$OE_USER /var/log/$OE_USER
+mkdir /var/log/$OE_USER
+chown $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
 # Install ODOO
