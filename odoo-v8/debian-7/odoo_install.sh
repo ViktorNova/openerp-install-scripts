@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 # Script for Installation: ODOO 8 server on Debian 7
-# Author: André Schenkels, ICTSTUDIO 2014
+# Author: AndrÃ© Schenkels, ICTSTUDIO 2014
 #-------------------------------------------------------------------------------
 #  
 # This script will install ODOO Server on
@@ -40,13 +40,16 @@ apt-get upgrade -y
 # Install PostgreSQL Server
 #--------------------------------------------------
 echo -e "\n---- Install PostgreSQL Server ----"
-apt-get install postgresql -y
+echo "SKIPPED --per Viktor"
+#apt-get install postgresql -y
 	
 echo -e "\n---- PostgreSQL $PG_VERSION Settings  ----"
-sed -i s/"#listen_addresses = 'localhost'"/"listen_addresses = '*'"/g /etc/postgresql/9.1/main/postgresql.conf
+echo "SKIPPED --per Viktor"
+#sed -i s/"#listen_addresses = 'localhost'"/"listen_addresses = '*'"/g /etc/postgresql/9.1/main/postgresql.conf
 
 echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
-su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
+echo "SKIPPED --per Viktor"
+#su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
 #--------------------------------------------------
 # Install Dependencies
@@ -62,17 +65,21 @@ pip install gdata
 pip install -I pillow
 	
 echo -e "\n---- Create ODOO system user ----"
-adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
-
+echo "SKIPPED --per Viktor"
+#adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
+echo "..although we will make sure the Odoo user has a bash shell"
+chsh -s /bin/bash odoo
 echo -e "\n---- Create Log directory ----"
-mkdir /var/log/$OE_USER
-chown $OE_USER:$OE_USER /var/log/$OE_USER
+echo "SKIPPED --per Viktor"
+#mkdir /var/log/$OE_USER
+echo "SKIPPED --per Viktor"
+#chown $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
 # Install ODOO
 #--------------------------------------------------
 echo -e "\n==== Installing ODOO Server ===="
-git clone --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
+git clone --branch $OE_VERSION https://github.com/ViktorNova/odoo--with-authorize.net $OE_HOME_EXT/
 
 echo -e "\n---- Create custom module directory ----"
 su $OE_USER -c "mkdir $OE_HOME/custom"
